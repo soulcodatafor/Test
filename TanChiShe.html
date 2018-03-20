@@ -1,0 +1,74 @@
+<div align="center">
+	<canvas id="iCanvas" 
+		width="400" height="400" 
+		style="background:black">
+	</canvas>
+</div>
+
+<div align="center">
+	<button id"up" onclick="changeDirection(-1)">
+		<h1>&nbsp;上&nbsp;</h1>
+	</button>
+</div>
+<div align="center">
+	<button id"left" onclick="changeDirection(-20)">
+		<h1>&nbsp;左&nbsp;</h1>
+	</button>
+	<button id"down" onclick="changeDirection(1)">
+		<h1>&nbsp;下&nbsp;</h1>
+	</button>
+	<button id"right" onclick="changeDirection(20)">
+		<h1>&nbsp;右&nbsp;</h1>
+	</button>
+</div>
+
+<script>
+var ctx = document.getElementById("iCanvas").getContext("2d");
+var loong = [63, 43];
+var direction = 20;
+var food = 83;
+
+function draw(coord, color) {
+	ctx.fillStyle = color;
+	ctx.fillRect(~~(coord/20)*20, coord%20*20, 18, 18);
+}
+
+function changeDirection(d) {
+	direction = d;
+}
+
+document.onkeydown = function(e) {
+	var d = [-20, -1, 20, 1][(e||event).keyCode - 37] || direction;
+	if (direction != d*(-1)) {
+		direction = d;
+	}
+};
+
+!function() {
+	loong.unshift(loong[0] + direction);
+	if (loong.indexOf(loong[0], 1)>0 || 
+		loong[0]<0 || loong[0]>399 || 
+		direction == 1 && loong[0]%20==0 || 
+		direction == -1 && loong[0]%20==19) {
+		alert("Game Over!");
+		return;
+	}
+	draw(loong[0], "lime");
+	if (loong[0] == food) {
+		while (loong.indexOf(food = ~~(Math.random()*400)) >= 0);
+		draw(food, "yellow");		
+	} else {
+		draw(loong.pop(), "black");		
+	}
+	setTimeout(arguments.callee, 100);
+}();
+</script>
+
+
+
+
+
+
+
+
+
