@@ -1,0 +1,51 @@
+<canvas id="iCanvas" 
+    width="600" height="900" 
+    style="background: black">
+</canvas>
+
+<script>
+var ctx = document.getElementById("iCanvas").getContext("2d");
+function draw(zb, ys) {
+    ctx.fillStyle = ys;
+    ctx.fillRect(~~(zb / 30) * 30, zb % 30 * 30, 28 ,28);
+}
+
+var bj = [];
+var sj = [61, 32, 62, 92];
+var fk = [31, 61, 32, 62];
+var tx = [61, 32, 62, 92];
+
+function move(fx){
+    for (i in tx) {
+        if ((tx[i] + 1) % 30 == 29 || bj.indexOf(tx[i]+1) >= 0) {
+            for (i in tx) bj.push(tx[i]);
+
+            
+            if (bj.length >= 10) {
+                for (i in bj) draw(tx[i], "red");
+            }
+
+            tx.splice(0);
+            for (i in sj) tx.push(sj[i]);
+            return 0;
+        } 
+    }
+    if (bj.indexOf(tx[i]+30) == -1 && bj.indexOf(tx[i]-30) == -1) {
+        for (i in tx) draw(tx[i], "black");
+        for (i in tx) draw(tx[i] += fx, "green");      
+    }
+    // if (fx == 0) {
+    //     for (i in tx) draw(tx[i], "black");
+    //     for (i in tx) draw(tx[i] += 31, "green");
+    // }
+}
+
+document.onkeydown = function(e) {
+    move([-30, 0, 30, 1][e.keyCode - 37] || 0);
+};
+
+!function(){
+    move(1);
+    setTimeout(arguments.callee, 200);
+}();
+</script>
