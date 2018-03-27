@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="{CHARSET}">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<title></title>
+		<style>
+			.s_ipt_wr {
+				border: 1px solid #b6b6b6;
+				border-color: #7b7b7b #b6b6b6 #b6b6b6 #7b7b7b;
+				background: #fff;
+				display: inline-block;
+				vertical-align: top;
+				width: 530px;
+				overflow: hidden;
+			}
+			.s_ipt{
+				width:526px; height:30px;
+				font:16px/18px arial;line-height:22px;
+				margin:6px 0 0 7px;
+				padding:0;background:transparent;
+				border:0;outline:0;-webkit-appearance:none;
+			}
+		</style>
+	</head>
+	<body>
+		<div align="center">
+			<span class="bg s_ipt_wr quickdelete-wrap">
+				<input id="kw" name="wd" class="s_ipt" value="" maxlength="255" autocomplete="off">
+			</span>
+		</div>
+		<div align="center">
+			<button id="baidu" onclick="search('baidu')">百度</button>
+			<button id="bing" onclick="search('bing')">必应</button>
+			<button id="baidu" onclick="search('sougou')">搜狗</button>
+			<button id="bing" onclick="search('360')">360</button>
+			<button id="allweb" onclick="search('allweb')">全部</button>
+		</div>
+		
+		<script>
+			function search(engine) {
+				kw = document.getElementById("kw").value;
+				switch(engine){
+					case 'baidu':
+						ss = "https://www.baidu.com/s?wd=" + kw;
+						break;
+					case 'bing':
+						ss = "https://cn.bing.com/search?q=" + kw;	
+						break;
+					case '360':
+						ss = "https://www.so.com/s?&q=" + kw;
+					case 'sougou':
+						ss = 'https://www.sogou.com/web?&query=' + kw;
+					case 'allweb':
+						window.open("https://www.baidu.com/s?wd=" + kw);
+						window.open("https://cn.bing.com/search?q=" + kw);
+						window.open("https://www.so.com/s?&q=" + kw);
+						window.open("https://www.sogou.com/web?&query=" + kw);
+				}
+				window.open(ss);
+			}
+		</script>
+	</body>
+</html>
